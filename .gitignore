@@ -1,4 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
-SBTHomeWork_9.iml
 target/
+*.iml
