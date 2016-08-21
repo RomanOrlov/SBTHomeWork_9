@@ -3,19 +3,15 @@ package ru.sbt.orlov.cache;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import ru.sbt.orlov.cache.CacheProxy;
-import ru.sbt.orlov.model.Adress;
-import ru.sbt.orlov.model.Passport;
 import ru.sbt.orlov.model.Patient;
 import ru.sbt.orlov.model.PatientsManager;
 import ru.sbt.orlov.service.Service;
 import ru.sbt.orlov.service.ServiceImpl;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class CacheProxyTest {
 
@@ -53,10 +49,15 @@ public class CacheProxyTest {
 
     @Test
     public void testCacheInFile() {
+        // Must be very fast
         System.out.println(cache.findPatient(14,"Petrov"));
-        System.out.println(cache.findPatient(14,"Petrov"));
-        System.out.println(cache.findPatient(14,"Petrov"));
-        System.out.println(cache.findPatient(14,"Petrov"));
-        System.out.println(cache.findPatient(14,"Petrov"));
+        System.out.println(cache.findPatient(24,"Petrov"));
+        System.out.println(cache.findPatient(34,"Petrov"));
+        System.out.println(cache.findPatient(54,"Petrov"));
+        // Not Exist
+        assertEquals(cache.findPatient(14,"UnknownCreature"),null);
+        // For list
+        cache.patientsWithAge(0,1);
+        cache.patientsWithAge(214,344);
     }
 }

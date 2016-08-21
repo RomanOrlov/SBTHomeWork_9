@@ -2,6 +2,7 @@ package ru.sbt.orlov.cache;
 
 import java.io.*;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +57,9 @@ public class MethodCache {
     }
 
     public Object putInCache(Object[] args, Object value) {
+        if (value==null) {
+            return value;
+        }
         String key = getCacheKeyByArgs(args);
         switch (cacheType) {
             case FILE: {
@@ -94,9 +98,9 @@ public class MethodCache {
         } catch (EOFException e) {
             return null;
         } catch (IOException e) {
-            throw new RuntimeException("Ошибка во время записи в файл в директории " + dir + " c именем " + fileName, e);
+            throw new RuntimeException("Ошибка во время записи в файл в директории " + dir + " c именем " + fileName + " "+e.getMessage(), e);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Класс не был найден ", e);
+            throw new RuntimeException("Класс не был найден "+ e.getMessage(), e);
         }
     }
 
@@ -105,7 +109,8 @@ public class MethodCache {
             if (result instanceof List) {
                 List resultList = (List) result;
                 if (resultList.size() > maxListElementsCached) {
-                    result = resultList.subList(0, maxListElementsCached);
+                    // нельзя брать sublist, - иначе будет NotSerializibleException
+                    result = new ArrayList<>(resultList.subList(0, maxListElementsCached));
                 }
             }
             if (zip) {

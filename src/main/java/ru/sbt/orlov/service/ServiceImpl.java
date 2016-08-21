@@ -5,6 +5,7 @@ import ru.sbt.orlov.model.Patient;
 import ru.sbt.orlov.model.PatientsManager;
 import ru.sbt.orlov.model.People;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ServiceImpl implements Service {
     @Override
     public Date findBirthday(People people) {
         try {
-            Thread.sleep(10000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -36,7 +37,16 @@ public class ServiceImpl implements Service {
 
     @Override
     public List<Patient> patientsWithAge(Integer from, Integer to) {
-        return null;
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if ((from+to)%2==0) {
+            return patientsManager.getPatients();
+        } else {
+            return new ArrayList<>(patientsManager.getPatients().subList(0,2));
+        }
     }
 
     @Override
