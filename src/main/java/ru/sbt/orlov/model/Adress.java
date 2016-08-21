@@ -39,4 +39,13 @@ public class Adress implements Serializable{
     public void setStreet(String street) {
         this.street = street;
     }
+
+    @Override
+    public String toString() {
+        return "Adress{" +
+                "city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", index='" + index + '\'' +
+                '}';
+    }
 }

@@ -1,4 +1,6 @@
-package ru.sbt.orlov;
+package ru.sbt.orlov.cache;
+
+import ru.sbt.orlov.service.Service;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -39,14 +41,14 @@ public class CacheProxy implements InvocationHandler {
                     throw new IllegalArgumentException("Для каждого метода должен быть уникальный ключ кеширования (По дефолту это имя метода)");
                 }
             } else {
-                cache = new MethodCache(method,key);
+                cache = new MethodCache(method,cacheDir,key);
                 cacheMap.put(key,cache);
             }
             Object cachedValue = cache.getFromCache(args);
             if (cachedValue!=null) {
                 return cachedValue;
             } else {
-                return cache.putInCache(invoke(method,args));
+                return cache.putInCache(args,invoke(method,args));
             }
         }
     }

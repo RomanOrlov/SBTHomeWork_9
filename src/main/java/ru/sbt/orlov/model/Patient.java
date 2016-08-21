@@ -26,4 +26,12 @@ public class Patient extends People implements Serializable {
     public void setHistoryNum(int historyNum) {
         this.historyNum = historyNum;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+" Patient{" +
+                "diagnosis='" + diagnosis + '\'' +
+                ", historyNum=" + historyNum +
+                '}';
+    }
 }

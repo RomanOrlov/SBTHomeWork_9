@@ -68,4 +68,16 @@ public class Passport implements Serializable{
     public void setWhereCreated(String whereCreated) {
         this.whereCreated = whereCreated;
     }
+
+    @Override
+    public String toString() {
+        return "Passport{" +
+                "father=" + father +
+                ", series=" + series +
+                ", number=" + number +
+                ", whenCreated=" + whenCreated +
+                ", whereCreated='" + whereCreated + '\'' +
+                ", mother=" + mother +
+                '}';
+    }
 }

@@ -8,7 +8,7 @@ public class People implements Serializable {
     private String patronymic;
     private boolean isMale;
     private Adress adress = new Adress();
-    private Passport passport = new Passport();
+    private transient Passport passport = new Passport();
 
     public People(String name, String surname, String patronymic, boolean isMale) {
         this.surname = surname;
@@ -47,5 +47,32 @@ public class People implements Serializable {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public Adress getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
+    @Override
+    public String toString() {
+        return "People{" +
+                "adress=" + adress +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", isMale=" + isMale +
+                '}';
     }
 }

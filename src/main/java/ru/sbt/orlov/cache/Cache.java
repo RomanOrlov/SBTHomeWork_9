@@ -1,4 +1,4 @@
-package ru.sbt.orlov;
+package ru.sbt.orlov.cache;
 
 import java.lang.annotation.*;
 
