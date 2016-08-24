@@ -107,7 +107,7 @@ public class MethodCache {
     private void putCacheInFile(String fileName, Object result) {
         try {
             if (result instanceof List) {
-                List resultList = (List) result;
+                List<?> resultList = (List) result;
                 if (resultList.size() > maxListElementsCached) {
                     // нельзя брать sublist, - иначе будет NotSerializibleException
                     result = new ArrayList<>(resultList.subList(0, maxListElementsCached));

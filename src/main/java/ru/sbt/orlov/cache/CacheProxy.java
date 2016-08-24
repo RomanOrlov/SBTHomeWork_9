@@ -1,7 +1,5 @@
 package ru.sbt.orlov.cache;
 
-import ru.sbt.orlov.service.Service;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,18 +7,18 @@ import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CacheProxy implements InvocationHandler {
-    private final Service delegateService;
+public class CacheProxy<T> implements InvocationHandler {
+    private final T delegateService;
     private final String cacheDir;
     private Map<String,MethodCache> cacheMap = new HashMap<>();
 
-    public CacheProxy(Service delegateService,String cacheDir) {
+    public CacheProxy(T delegateService,String cacheDir) {
         this.delegateService = delegateService;
         this.cacheDir = cacheDir;
     }
 
-    public static Service cache(Service service,String cacheDir) {
-        return (Service) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(),
+    public static<T> T cache(T service,String cacheDir) {
+        return (T) Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(),
                 service.getClass().getInterfaces(),
                 new CacheProxy(service,cacheDir));
     }
@@ -28,15 +26,12 @@ public class CacheProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if (!method.isAnnotationPresent(Cache.class)) {
-            // Если нет аннотации - просто вызвать метод
             return invoke(method,args);
         } else {
-            // Если есть, - попытаться взять значение из кеша, и если его там нет, - положить в кеш
             String key = getMethodCacheKey(method);
             MethodCache cache;
             if (cacheMap.containsKey(key)) {
                 cache =  cacheMap.get(getMethodCacheKey(method));
-                // Проверяем, что кеш с таким ключом соответствует именно этому методу
                 if (!cache.isCacheValid(method)) {
                     throw new IllegalArgumentException("Для каждого метода должен быть уникальный ключ кеширования (По дефолту это имя метода)");
                 }
