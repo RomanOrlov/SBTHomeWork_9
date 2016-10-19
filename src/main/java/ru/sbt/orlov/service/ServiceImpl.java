@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@org.springframework.stereotype.Service
 public class ServiceImpl implements Service {
 
     PatientsManager patientsManager = new PatientsManager();
