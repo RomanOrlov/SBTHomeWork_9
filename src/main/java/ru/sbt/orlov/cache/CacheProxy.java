@@ -1,5 +1,7 @@
 package ru.sbt.orlov.cache;
 
+import org.springframework.stereotype.Service;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -7,6 +9,7 @@ import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class CacheProxy<T> implements InvocationHandler {
     private final T delegateService;
     private final String cacheDir;

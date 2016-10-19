@@ -15,7 +15,7 @@ public class ServiceImpl implements Service {
 
     @Override
     public int countPeopleMeanAgeFromDB() {
-        return (int)(1000*Math.random());
+        return (int) (1000 * Math.random());
     }
 
     @Override
@@ -42,15 +42,15 @@ public class ServiceImpl implements Service {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if ((from+to)%2==0) {
+        if ((from + to) % 2 == 0) {
             return patientsManager.getPatients();
         } else {
-            return new ArrayList<>(patientsManager.getPatients().subList(0,2));
+            return new ArrayList<>(patientsManager.getPatients().subList(0, 2));
         }
     }
 
     @Override
-    public Patient findPatient(int historyNum,String surname) {
+    public Patient findPatient(int historyNum, String surname) {
         try {
             // Go to Database
             Thread.sleep(5000);
